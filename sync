@@ -1,11 +1,16 @@
+#!/usr/bin/env node
+if(global.TextEncoder === undefined){
+    const { TextEncoder, TextDecoder } = require('util');
+    global.TextEncoder = TextEncoder;
+    global.TextDecoder = TextDecoder;
+}
 const limit = 743700
 const Indexer = require('./indexer');
-const TxnScanner = require('./txn-scanner');
-const LogScanner = require('./log-scanner');
+require('dotenv').config();
 const mongo = require('mongoose');
 const path = require('path');
 const certPath = path.join(__dirname,'ca-certificate.crt');
-mongo.connect(`mongodb+srv://explorer:s760C18nmLY3M5v9@zenith-explorer-db-cluster-db9cd120.mongo.ondigitalocean.com/ethereum?authSource=admin&tls=true&tlsCAFile=${certPath}`,(err)=>{
+mongo.connect(`${process.env.MONGO_URI}?authSource=admin&tls=true&tlsCAFile=${certPath}`,(err)=>{
     if(err)
         return console.log(err);
     return console.log("DB Connected!");
