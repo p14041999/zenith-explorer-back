@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+if(global.TextEncoder === undefined){
+    const { TextEncoder, TextDecoder } = require('util');
+    global.TextEncoder = TextEncoder;
+    global.TextDecoder = TextDecoder;
+}
 const TxnScanner = require('./txn-scanner');
 const mongo = require('mongoose');
 const path = require('path');
