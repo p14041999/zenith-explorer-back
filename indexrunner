@@ -4,6 +4,7 @@ if(global.TextEncoder === undefined){
     global.TextEncoder = TextEncoder;
     global.TextDecoder = TextDecoder;
 }
+require('dotenv').config();
 const Indexer = require('./indexer');
 const mongo = require('mongoose');
 const path = require('path');
