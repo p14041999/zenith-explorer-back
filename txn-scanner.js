@@ -1,9 +1,7 @@
 const Web3 = require('web3');
 const PendingTx = require('./models/pendingTransactions');
 class TxnScanner{
-    ws_link = "";
-    rpc_link = "";
-    web3 = null;
+    
     constructor(ws_link="wss://mainnet.infura.io/ws/v3/9aa3d95b3bc440fa88ea12eaa4456161",rpc_link="https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"){
         this.ws_link = ws_link;
         this.web3 = new Web3(rpc_link);
