@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+const Indexer = require('./indexer');
+const mongo = require('mongoose');
+const path = require('path');
+const certPath = path.join(__dirname,'ca-certificate.crt');
+mongo.connect(`${process.env.MONGO_URI}?authSource=admin&tls=true&tlsCAFile=${certPath}`,(err)=>{
+    if(err)
+        return console.log(err);
+    return console.log("DB Connected!");
+});
+let indexer = new Indexer(process.env.WS_LINK,process.env.RPC_LINK);
+indexer.start();
