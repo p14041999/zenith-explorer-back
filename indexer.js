@@ -8,9 +8,9 @@ const Miner = require('./models/miner');
 // const { Error } = require('mongoose');
 const {abi} = require('./abi/ERC20.json');
 class Indexer{
-    ws_link;
-    rpc_link;
-    web3;
+    ws_link = "";
+    rpc_link = "";
+    web3 = null;
     constructor(ws_link="wss://mainnet.infura.io/ws/v3/8b43293541c64572bb5c51fb29870855",rpc_link="https://mainnet.infura.io/v3/8b43293541c64572bb5c51fb29870855"){
         this.ws_link = ws_link;
         this.web3 = new Web3(rpc_link);

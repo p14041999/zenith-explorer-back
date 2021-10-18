@@ -20,7 +20,10 @@ const addressSchema = mongo.Schema({
             to:String,
             value:String,
         }
-    ]
+    ],
+    type:{
+        type:String
+    }
 })
 
 module.exports = mongo.model("Token",addressSchema);

@@ -38,8 +38,9 @@ const LogAbi2 = [
 
 
 class LogScanner{
-    ws_link;
-    web3;
+    ws_link = "";
+    rpc_link = "";
+    web3 = null;
     constructor(ws_link="wss://mainnet.infura.io/ws/v3/8b43293541c64572bb5c51fb29870855",rpc_link="https://mainnet.infura.io/v3/8b43293541c64572bb5c51fb29870855"){
         this.ws_link = ws_link;
         this.web3 = new Web3(rpc_link);
@@ -59,7 +60,8 @@ class LogScanner{
                     from:Txn.from,
                     to:Txn.to,
                     value:Txn.value,
-                    transactionHash:log.transactionHash
+                    transactionHash:log.transactionHash,
+                    type:"ZRC20"
                 })
                 await tokenTransaction.save();
             }catch(e){
@@ -69,8 +71,9 @@ class LogScanner{
                         address:log.address,
                         from:Txn.from,
                         to:Txn.to,
-                        value:Txn.value,
-                        transactionHash:log.transactionHash
+                        id:Txn.value,
+                        transactionHash:log.transactionHash,
+                        type:"ZRC721"
                     })
                     await tokenTransaction.save();
                 }catch(err){
