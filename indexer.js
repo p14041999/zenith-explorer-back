@@ -21,9 +21,9 @@ class Indexer{
     addToDB(){
 
     }
-    getBlock(hash){
-        this.web3.eth.getBlock(hash,true).then(async (e)=>{
-            try{
+    async getBlock(hash){
+        try{
+            let e =await this.web3.eth.getBlock(hash,true);
             if(e.transactions.length >= 1){
                 let block = new Block(e);
                 block.transactions = [];
@@ -34,7 +34,6 @@ class Indexer{
                     }catch(e){
                         console.log(e)
                     }
-                    // return;
                 })
                 await block.save();
                 console.log(block);
@@ -52,10 +51,10 @@ class Indexer{
                     await miner.save();
                 }
             }
-            }catch(e){
-                console.log(e);
-            }
-        });
+            
+        }catch(e){
+            console.log(e);
+        }
     }
     async saveTxnToDB(tx,timestamp){
         let receipt = await this.web3.eth.getTransactionReceipt(tx.hash);
@@ -207,9 +206,9 @@ class Indexer{
         .on("connected", function(subscriptionId){
             console.log("ID:",subscriptionId);
         })
-        .on("data", (blockHeader)=>{
+        .on("data",async (blockHeader)=>{
             console.log("New Block");
-            this.getBlock(blockHeader.hash);
+            await this.getBlock(blockHeader.hash);
         })
         .on("error", console.error);
     }
