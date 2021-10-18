@@ -24,7 +24,7 @@ class Indexer{
     async getBlock(hash){
         try{
             let e =await this.web3.eth.getBlock(hash,true);
-            if(e.transactions.length >= 1){
+            // if(e.transactions.length >= 1){
                 let block = new Block(e);
                 block.transactions = [];
                 e.transactions.forEach(async (tx)=>{
@@ -50,7 +50,7 @@ class Indexer{
                     })
                     await miner.save();
                 }
-            }
+            // }
             
         }catch(e){
             console.log(e);
