@@ -2,3 +2,5 @@
 node_modules/
 ca-certificate.crt
 app.js
+cred.txt
+
