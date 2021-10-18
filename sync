@@ -15,7 +15,7 @@ mongo.connect(`${process.env.MONGO_URI}?authSource=admin&tls=true&tlsCAFile=${ce
         return console.log(err);
     return console.log("DB Connected!");
 });
-let indexer = new Indexer();
+let indexer = new Indexer(process.env.WS_LINK,process.env.RPC_LINK);
 
 async function scan(){
     for(let i=0; i<=limit;i++){
