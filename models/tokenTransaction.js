@@ -14,6 +14,9 @@ const pendingTx = mongo.Schema({
     value:{
         type:String
     },
+    id:{
+        type:String
+    },
     transactionHash:{
         type:String
     }
