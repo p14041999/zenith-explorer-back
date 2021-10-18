@@ -9,6 +9,8 @@ const Indexer = require('./indexer');
 require('dotenv').config();
 const mongo = require('mongoose');
 const path = require('path');
+const fs = require('fs');
+
 const certPath = path.join(__dirname,'ca-certificate.crt');
 mongo.connect(`${process.env.MONGO_URI}?authSource=admin&tls=true&tlsCAFile=${certPath}`,(err)=>{
     if(err)
@@ -16,14 +18,15 @@ mongo.connect(`${process.env.MONGO_URI}?authSource=admin&tls=true&tlsCAFile=${ce
     return console.log("DB Connected!");
 });
 let indexer = new Indexer(process.env.WS_LINK,process.env.RPC_LINK);
-
 async function scan(){
-    for(let i=0; i<=limit;i++){
+    for(let i=38087; i<=limit;i++){
         try{
             if(i==limit){
+                fs.writeFileSync(path.join(__dirname,'log.txt'),"Done Syncing!\nNow Exiting.... ")
                 console.log("Done Syncing!");
                 console.log("Exiting Now");
             }
+            fs.writeFileSync(path.join(__dirname,'log.txt'),"Syncing Block: "+i);
             await indexer.getBlock(i);
         }catch(e){
             console.log(e);
