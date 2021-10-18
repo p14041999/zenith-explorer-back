@@ -23,6 +23,7 @@ class Indexer{
     }
     getBlock(hash){
         this.web3.eth.getBlock(hash,true).then(async (e)=>{
+            try{
             if(e.transactions.length >= 1){
                 let block = new Block(e);
                 block.transactions = [];
@@ -49,6 +50,9 @@ class Indexer{
                     })
                     await miner.save();
                 }
+            }
+            }catch(e){
+                console.log(e);
             }
         });
     }
@@ -184,6 +188,7 @@ class Indexer{
             let totalSupply = await contract.methods.totalSupply().call();
             return {name, symbol, totalSupply};
         }catch(e){
+            console.log(e);
             throw Error("Error!");
         }
     }
@@ -202,6 +207,7 @@ class Indexer{
             console.log("ID:",subscriptionId);
         })
         .on("data", (blockHeader)=>{
+            console.log("New Block");
             this.getBlock(blockHeader.hash);
         })
         .on("error", console.error);
