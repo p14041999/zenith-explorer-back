@@ -25,6 +25,7 @@ class Indexer{
         this.web3.eth.getBlock(hash,true).then(async (e)=>{
             if(e.transactions.length >= 1){
                 let block = new Block(e);
+                block.transactions = [];
                 e.transactions.forEach(async (tx)=>{
                     try{
                         block.transactions.push({hash:tx.hash});
