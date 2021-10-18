@@ -20,9 +20,14 @@ let indexer = new Indexer();
 async function scan(){
     for(let i=0; i<=limit;i++){
         try{
+            if(i==limit){
+                console.log("Done Syncing!");
+                console.log("Exiting Now");
+            }
             await indexer.getBlock(i);
         }catch(e){
             console.log(e);
         }
     }
 }
+scan();
