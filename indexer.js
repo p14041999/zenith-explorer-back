@@ -37,6 +37,7 @@ class Indexer{
                     // return;
                 })
                 await block.save();
+                console.log(block);
                 let miner = await Miner.findOne({address:block.miner});
                 if(miner){
                     miner.lastMinedBlock = block.number;
